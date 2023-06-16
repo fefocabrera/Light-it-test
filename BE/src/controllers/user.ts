@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { UserService } from '../services';
 import { ValidationError, GeneralError, AuthorizationError } from '../exceptions/exceptions'
-import { validateRegisterInputs, validateLoginInputs } from '../utils/userValidator'
+import { validateRegisterInputs, validateLoginInputs } from '../utils/validators/userValidator'
 
 export class UserController {
   private readonly userService: UserService;

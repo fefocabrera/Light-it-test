@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { ValidationError } from '../exceptions/exceptions'
+import { ValidationError } from '../../exceptions/exceptions'
 
 const registerSchema = Joi.object({
     firstName: Joi.string()

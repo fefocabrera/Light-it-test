@@ -1,8 +1,10 @@
 import { Uuid } from "../types/Basetypes";
 import { UserEntity } from "../domain/user";
 import User from "../database/models/user";
-import { ValidationError, GeneralError, AuthorizationError } from '../exceptions/exceptions'
-import { validatePassword } from '../utils/passwordValidator'
+import { ValidationError, GeneralError, AuthorizationError } from '../exceptions/exceptions';
+import { validatePassword } from '../utils/validators/passwordValidator';
+import { getToken } from '../utils/tokenManager';
+
 import sequelize from '../database/index';
 import { QueryTypes } from 'sequelize';
 
@@ -25,8 +27,8 @@ export class UserService {
           }
         )
         await insertUser(user);
-        //const token = await getToken(user.uuid);
-        return 'tokennnnn';
+        const token = await getToken(user.uuid as string);
+        return token;
       }
       catch (err){
         if (err instanceof ValidationError) {
@@ -41,8 +43,8 @@ export class UserService {
       try{
         const user = await validateUser(username, password);
 
-        //const token = await getToken(user.uuid);
-        return 'tokennnnn';
+        const token = await getToken(user.uuid as string);
+        return token;
       }
       catch (err){
         if (err instanceof ValidationError) {

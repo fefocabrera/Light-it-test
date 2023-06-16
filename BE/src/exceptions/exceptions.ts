@@ -7,6 +7,15 @@ export class ValidationError extends Error {
     }
 }
 
+export class AuthorizationError extends Error {
+  public details?: any;
+
+  constructor(message: string, details?: any) {
+    super(message);
+    this.details = details;
+  }
+}
+
 export class ExternalApiError extends Error {
   public details?: any;
 

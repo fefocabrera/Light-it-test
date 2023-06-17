@@ -1,6 +1,7 @@
 import EvaluationSymptomsModel from './evaluationSymptoms';
 import DiagnosisModel from './diagnosis';
 import EvaluationModel from './evaluation';
+import ExternalApiToken from './externalApiToken';
 import UserModel from './user';
 import * as dotenv from 'dotenv'
 
@@ -13,6 +14,7 @@ const dbMigrate = async () => {
         await EvaluationModel.sync({ alter: isDev })
         await EvaluationSymptomsModel.sync({ alter: isDev })
         await DiagnosisModel.sync({ alter: isDev })
+        await ExternalApiToken.sync({ alter: isDev })
     } catch (err){
         console.log('Error trying to create db: ', err)
     }

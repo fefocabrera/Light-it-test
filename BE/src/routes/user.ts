@@ -1,8 +1,6 @@
 import { UserController } from '../controllers';
 import express, { Router } from 'express';
 
-const router = Router()
-
 export class UserRoutes {
   private readonly router: Router;
   private readonly userController: UserController;

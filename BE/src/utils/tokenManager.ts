@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { GeneralError, AuthorizationError } from '../exceptions/exceptions';
+import { Uuid } from '../types/Basetypes';
 
 interface DecodedToken {
     userUuid: string;
@@ -7,7 +8,7 @@ interface DecodedToken {
 
 const secretKey = process.env.JWT_SECRET_KEY;
 
-export const getToken = (userUuid: string): string => {
+export const getToken = (userUuid: Uuid): string => {
     if (secretKey) {
         const token = jwt.sign({userUuid}, secretKey);
         return token;

@@ -10,9 +10,10 @@ const registerSchema = Joi.object({
         .trim()
         .max(30)
         .required(),
-    genre: Joi.string()
+    gender: Joi.string()
         .trim()
-        .valid('male', 'female'),
+        .valid('male', 'female')
+        .required(),
     birthdate : Joi.date()
         .iso()
         .min('1900-01-01')
@@ -44,8 +45,8 @@ const loginSchema = Joi.object({
         .required(),
 })
 
-export const validateRegisterInputs = (firstName: any, lastName: any, genre: any, birthdate: any, username: any, password: any, repeatPassword: any) => {
-    const { error } = registerSchema.validate({ firstName, lastName, genre, birthdate, username, password, repeatPassword });
+export const validateRegisterInputs = (firstName: any, lastName: any, gender: any, birthdate: any, username: any, password: any, repeatPassword: any) => {
+    const { error } = registerSchema.validate({ firstName, lastName, gender, birthdate, username, password, repeatPassword });
     if(error){
         throw new ValidationError(`Error trying to validate inputs on Register. ${error}`);
     }

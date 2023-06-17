@@ -1,5 +1,7 @@
 import { UserRoutes } from './user';
+import { SymptomRoutes } from './symptom';
 
 export { 
-    UserRoutes
+    UserRoutes,
+    SymptomRoutes
 }

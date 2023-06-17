@@ -1,15 +1,15 @@
 export class SymptomDto {
-    ID: number;
-    Name: string;
+    id: number;
+    name: string;
 
     constructor({
-        ID,
-        Name,
+        id,
+        name,
     }: {
-        ID: number,
-        Name: string,
+        id: number,
+        name: string,
     }) {
-        this.ID = ID;
-        this.Name = Name;
+        this.id = id;
+        this.name = name;
     }
 }

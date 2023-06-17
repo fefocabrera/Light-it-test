@@ -8,7 +8,7 @@ export class UserService {
 
     constructor() {}
 
-    async register(firstName: string, lastName: string, genre: string, birthdate: Date, username: string, password: string): Promise<string> {
+    async register(firstName: string, lastName: string, gender: string, birthdate: Date, username: string, password: string): Promise<string> {
       try{
         await validateUserNotExist(username);
 
@@ -16,7 +16,7 @@ export class UserService {
           {
             firstName, 
             lastName,
-            genre,
+            gender,
             birthdate,
             username,
             password
@@ -68,7 +68,7 @@ const insertUser = async (user: UserEntity) => {
       uuid: user.uuid,
       firstName: user.firstName,
       lastName: user.lastName,
-      genre: user.genre,
+      gender: user.gender,
       birthdate: user.birthdate,
       username: user.username,
       password: user.password,

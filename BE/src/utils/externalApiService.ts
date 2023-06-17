@@ -7,10 +7,15 @@ import { QueryTypes } from 'sequelize';
 import { SymptomDto } from "../domain/dto/symptomDto"
 
 interface ExternalApiInvalidTokenError {
-    response: {
-        data: string;
-    }
+  response: {
+    data: string;
   }
+}
+
+interface paramsEntity {
+  name: string, 
+  value: string
+}
 
 const externalApiUsername = process.env.EXTERNAL_API_USERNAME || '';
 const externalApiPassword = process.env.EXTERNAL_API_PASSWORD || '';
@@ -46,30 +51,68 @@ class ExternalApiService {
   }
 
   async getAllSymptomsFromExternalApi(): Promise<SymptomDto[]> {
-    let simptoms = [];
+    let symptoms = [];
     const uri = `${externalApiHealthServiceBaseUrl}/symptoms`;
 
     let token = await getExternalApiTokenFromDb();
-    let url = updateUrlWithParams(uri, token)
+    let params = [{name: 'token', value: token}];
+    let url = updateUrlWithParams(uri, params)
     try {
       const response = await axios.get(url);
-
-      simptoms = response.data;
+      symptoms = response?.data.map((symptom: any) => {
+        return new SymptomDto({id: symptom.ID, name: symptom.Name})
+      });
     } catch (error) {
         if((error as ExternalApiInvalidTokenError).response.data === 'Invalid token') {
             try {
                 token = await this.updateExternalApiToken();
-                url = updateUrlWithParams(uri, token)
+                params = [{name: 'token', value: token}];
+                url = updateUrlWithParams(uri, params)
                 const response = await axios.get(url);
-                simptoms =  response.data;
+                symptoms = response?.data.map((symptom: any) => {
+                  return new SymptomDto({id: symptom.ID, name: symptom.Name})
+                });
             } catch (err){
-                throw new ExternalApiError(`Error trying to get token from external api. ${error}`)
+                throw new ExternalApiError(`Error trying to get symptoms from external api. ${error}`)
             }
         } else {
-            throw new ExternalApiError(`Error trying to get token from external api. ${error}`)
+            throw new ExternalApiError(`Error trying to get symptoms from external api. ${error}`)
         }
     }
-    return simptoms;
+
+    return symptoms;
+  }
+
+  async evaluateSymptomsOnExternalApi(symptoms: SymptomDto[], gender: string, dateOfBirth: Date): Promise<any> {
+    let evaluation: any;
+    const uri = `${externalApiHealthServiceBaseUrl}/diagnosis`;
+
+    let token = await getExternalApiTokenFromDb();
+    const yearOfBirth = dateOfBirth.getFullYear();
+    const symptomsList = symptoms.map(symptom => symptom.id);
+    let params = [{name: 'token', value: token}, {name: 'symptoms', value: JSON.stringify(symptomsList).replace(/\s/g, '')}, {name: 'gender', value: gender}, {name: 'year_of_birth', value: yearOfBirth.toString()}];
+    let url = updateUrlWithParams(uri, params);
+
+    try {
+      const response = await axios.get(url);
+
+      evaluation = response.data;
+    } catch (error) {
+        if((error as ExternalApiInvalidTokenError).response.data === 'Invalid token') {
+            try {
+                token = await this.updateExternalApiToken();
+                params = [{name: 'token', value: token}, {name: 'symptoms', value: JSON.stringify(symptomsList).replace(/\s/g, '')}, {name: 'gender', value: gender}, {name: 'year_of_birth', value: yearOfBirth.toString()}];
+                url = updateUrlWithParams(uri, params);
+                const response = await axios.get(url);
+                evaluation =  response.data;
+            } catch (err){
+                throw new ExternalApiError(`Error trying to get evaluation from external api. ${error}`)
+            }
+        } else {
+            throw new ExternalApiError(`Error trying to get evaluation from external api. ${error}`)
+        }
+    }
+    return evaluation;
   }
 }
 
@@ -93,15 +136,19 @@ const updateExternalApiTokenIntoDb = async (token: string, validThrough: number)
 
 const getExternalApiTokenFromDb = async (): Promise<string> => {
     try{
-        return (await ExternalApiToken.findOne() as ExternalApiToken).token;
+        let tokenElem = await ExternalApiToken.findOne();
+        const tokenValue = tokenElem ? tokenElem?.token : '';
+        return tokenValue;
     } catch (err) {
         throw new GeneralError(`Internal error trying to get external api token from db. ${err}`);
     }
 }
 
-const updateUrlWithParams = (uri:string, token: string): string => {
+const updateUrlWithParams = (uri:string, paramsList: paramsEntity[]): string => {
     const params = new URLSearchParams();
-    params.append('token', token);
+    paramsList.forEach(param => {
+      params.append(param.name, param.value);
+    })
     params.append('language', 'en-gb');
     const url = `${uri}?${params.toString()}`;
     return url

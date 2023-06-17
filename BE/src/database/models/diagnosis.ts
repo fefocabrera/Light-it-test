@@ -6,6 +6,7 @@ import Evaluation from './evaluation';
 class Diagnosis extends Model {
   public uuid!: Uuid;
   public evaluationUuid!: Uuid;
+  public externalApiId!: number;
   public description!: string;
   public precision!: number;
   public confirmed?: boolean;
@@ -19,6 +20,9 @@ Diagnosis.init({
     defaultValue: DataTypes.UUIDV4,
     allowNull: false,
     primaryKey: true,
+  },
+  externalApiId: {
+    type: DataTypes.INTEGER,
   },
   description: {
     type: DataTypes.STRING,

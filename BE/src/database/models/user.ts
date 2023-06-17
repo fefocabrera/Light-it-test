@@ -6,7 +6,7 @@ class User extends Model {
   public uuid!: Uuid;
   public firstName!: string;
   public lastName!: string;
-  public genre?: string;
+  public gender!: string;
   public birthdate!: Date;
   public username!: string;
   public password!: string;
@@ -29,9 +29,9 @@ User.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  genre: {
+  gender: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
   },
   birthdate: {
     type: DataTypes.DATE,

@@ -14,16 +14,16 @@ export class UserController {
 	try {
 		const firstName = req.body?.firstName;
   		const lastName = req.body?.lastName;
-		const genre = req.body?.genre;
+		const gender = req.body?.gender;
   		const birthdate = req.body?.birthdate;
 		const username = req.body?.username;
 		const password = req.body?.password;
 		const repeatPassword = req.body?.repeatPassword;
 
-		validateRegisterInputs(firstName, lastName, genre, birthdate, username, password, repeatPassword);
+		validateRegisterInputs(firstName, lastName, gender, birthdate, username, password, repeatPassword);
 
 		const birthdateDate = new Date((birthdate as string).toString());
-		const token = await this.userService.register((firstName as string).trim(), (lastName as string).trim(), (genre as string).trim(), birthdateDate, (username as string).trim(), (password as string).trim());
+		const token = await this.userService.register((firstName as string).trim(), (lastName as string).trim(), (gender as string).trim(), birthdateDate, (username as string).trim(), (password as string).trim());
 		res.json(token)
 	}
 	catch (err) {

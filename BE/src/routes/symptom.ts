@@ -11,6 +11,7 @@ export class SymptomRoutes {
     this.symptomController = new SymptomController();
 
     this.router.get('/', isAuthenticated, async (req, res) => this.symptomController.getAll(req, res));
+    this.router.post('/evaluate', isAuthenticated, async (req, res) => this.symptomController.evaluateSymptoms(req, res));
   }
 
   getRouter(): Router {

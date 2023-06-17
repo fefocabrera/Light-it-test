@@ -6,7 +6,7 @@ export class UserEntity {
     uuid?: Uuid;
     firstName: string;
     lastName: string;
-    genre?: string;
+    gender: string;
     birthdate: Date;
     username: string;
     password: string;
@@ -17,7 +17,7 @@ export class UserEntity {
       uuid,
       firstName,
       lastName,
-      genre,
+      gender,
       birthdate,
       username,
       password,
@@ -27,7 +27,7 @@ export class UserEntity {
       uuid?: Uuid,
       firstName: string,
       lastName: string,
-      genre?: string,
+      gender: string,
       birthdate: Date,
       username: string,
       password: string,
@@ -41,7 +41,7 @@ export class UserEntity {
       this.uuid = uuid || genuuid();
       this.firstName = firstName;
       this.lastName = lastName;
-      this.genre = genre;
+      this.gender = gender;
       this.birthdate = birthdate;
       this.username = username;
       this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(saltRounds));

@@ -12,9 +12,7 @@ export class SymptomController {
 
   async getAll(req: Request, res: Response) {
 	try {
-		const userUuid = req.headers.userUuid;
-
-		const symptoms = await this.symptomService.getAll(userUuid as string);
+		const symptoms = await this.symptomService.getAll();
 		res.json(symptoms)
 	}
 	catch (err) {

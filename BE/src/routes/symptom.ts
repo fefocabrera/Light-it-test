@@ -2,8 +2,6 @@ import { SymptomController } from '../controllers';
 import express, { Router } from 'express';
 import { isAuthenticated } from '../middleware/auth';
 
-const router = Router()
-
 export class SymptomRoutes {
   private readonly router: Router;
   private readonly symptomController: SymptomController;

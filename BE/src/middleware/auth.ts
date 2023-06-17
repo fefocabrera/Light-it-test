@@ -4,7 +4,6 @@ import { GeneralError, AuthorizationError } from '../exceptions/exceptions'
 
 export const isAuthenticated = async (req: Request, res: Response, next: NextFunction) =>{
 
-    const loggedIn = true
     const authHeader = req.headers.authorization;
 
     try{

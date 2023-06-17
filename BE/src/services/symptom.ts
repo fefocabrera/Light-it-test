@@ -1,20 +1,18 @@
-import { Uuid } from "../types/Basetypes";
-import { UserEntity } from "../domain/user";
-import User from "../database/models/user";
 import { GeneralError, AuthorizationError } from '../exceptions/exceptions';
-
-import sequelize from '../database/index';
-import { QueryTypes } from 'sequelize';
+import ExternalApiService from '../utils/externalApiService'
+import { SymptomDto } from "../domain/dto/symptomDto"
 
 export class SymptomService {
+  private readonly externalApiService: ExternalApiService;
 
-    constructor() {}
+  constructor() {
+    this.externalApiService = new ExternalApiService();
+  }
 
-    async getAll(userUuid: string): Promise<string> {
+    async getAll(): Promise<SymptomDto[]> {
       try{
-        // const symptoms = await getToken(user.uuid as string);
-        // return symptoms;
-        return ''
+        const symptoms = await this.externalApiService.getAllSymptomsFromExternalApi();
+        return symptoms;
       }
       catch (err){
         if(err instanceof AuthorizationError) {

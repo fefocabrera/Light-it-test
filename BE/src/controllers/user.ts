@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { UserService } from '../services';
-import { ValidationError, GeneralError, AuthorizationError } from '../exceptions/exceptions'
+import { manageExceptions } from '../exceptions/exceptions'
 import { validateRegisterInputs, validateLoginInputs } from '../utils/validators/userValidator'
 
 export class UserController {
@@ -27,11 +27,7 @@ export class UserController {
 		res.json(token)
 	}
 	catch (err) {
-		if (err instanceof ValidationError) {
-			res.status(400).send(err.message)
-		} else if(err instanceof GeneralError) {
-			res.status(500).send(err.message)
-		}
+		manageExceptions(err, res);
 	}
   }
 
@@ -46,13 +42,7 @@ export class UserController {
 		res.json(token)
 	}
 	catch (err) {
-		if (err instanceof ValidationError) {
-			res.status(400).send(err.message)
-		} else if (err instanceof AuthorizationError){
-			res.status(401).send(err.message)
-		} else if(err instanceof GeneralError) {
-			res.status(500).send(err.message)
-		}
+		manageExceptions(err, res);
 	}
   }
 

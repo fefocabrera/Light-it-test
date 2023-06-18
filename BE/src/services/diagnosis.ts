@@ -1,5 +1,6 @@
 import { GeneralError, AuthorizationError, ValidationError } from '../exceptions/exceptions';
 import User from "../database/models/user";
+import Diagnosis from "../database/models/diagnosis";
 import { Uuid } from '../types/Basetypes';
 import sequelize from '../database/index';
 import { QueryTypes } from 'sequelize';
@@ -91,5 +92,61 @@ export class DiagnosisService {
         }
       }
     }
+
+    async confirmDiagnosis(userUuid: Uuid, diagnosisUuid: Uuid) {
+      try{
+        await validateDiagnosisExistAndBelongsToUser(userUuid, diagnosisUuid);
+        await Diagnosis.update(
+          {
+            confirmed: true,
+          },
+          {
+            where: {
+              uuid: diagnosisUuid,
+            }
+          }
+        )
+      }
+      catch (err){
+        if (err instanceof ValidationError) {
+          throw new ValidationError(`Error trying to confirm diagnosis. ${err}`);
+        } else {
+          throw new GeneralError(`Internal error trying to confirm diagnosis. ${err}`);
+        }
+      }
+    }
+
+}
+
+const validateDiagnosisExistAndBelongsToUser = async (userUuid: Uuid, diagnosisUuid: Uuid) => {
+  const query = `
+    SELECT
+      COUNT(*)
+    FROM Diagnoses
+    INNER JOIN Evaluations as e ON e.uuid = Diagnoses.evaluationUuid
+    WHERE Diagnoses.uuid = '${diagnosisUuid}' AND e.userUuid = '${userUuid}';
+  `;
+
+  try{
+    const [dbResults, metadata] = await sequelize.query(query, {
+      type: QueryTypes.RAW,
+      raw: true,
+    });
+    
+    if(dbResults){
+      const count = (dbResults as any)[0]['COUNT(*)'];
+      if(count !== 1){
+        throw new ValidationError(`Invalid diagnosis uuid.`);
+      }
+    }
+
+  } catch (err){
+    if(err instanceof AuthorizationError) {
+      throw new AuthorizationError(`Error trying to validate if diagnosis exist and belongs to user. ${err}`);
+    } else {
+      throw new GeneralError(`Internal error trying to validate if diagnosis exist and belongs to user. ${err}`);
+    }
+  }
+
 
 }

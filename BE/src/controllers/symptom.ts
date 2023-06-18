@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { SymptomService } from '../services';
-import { GeneralError, AuthorizationError, ValidationError } from '../exceptions/exceptions'
+import { manageExceptions } from '../exceptions/exceptions'
 import { validateEvaluationInputs } from '../utils/validators/symptomsValidator'
 import { Uuid } from '../types/Basetypes';
 
@@ -17,11 +17,7 @@ export class SymptomController {
 		res.json(symptoms)
 	}
 	catch (err) {
-		if (err instanceof AuthorizationError) {
-			res.status(401).send(err.message)
-		} else if(err instanceof GeneralError) {
-			res.status(500).send(err.message)
-		}
+		manageExceptions(err, res);
 	}
   }
 
@@ -36,13 +32,7 @@ export class SymptomController {
 		res.json(evaluation)
 	}
 	catch (err) {
-		if (err instanceof ValidationError) {
-			res.status(400).send(err.message)
-		} else if (err instanceof AuthorizationError){
-			res.status(401).send(err.message)
-		} else if(err instanceof GeneralError) {
-			res.status(500).send(err.message)
-		}
+		manageExceptions(err, res);
 	}
   }
 

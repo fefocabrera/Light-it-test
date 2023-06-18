@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { DiagnosisService } from '../services';
-import { GeneralError, AuthorizationError, ValidationError } from '../exceptions/exceptions'
+import { manageExceptions } from '../exceptions/exceptions'
 import { Uuid } from '../types/Basetypes';
+import { validateDiagnosisConfirmationInputs } from '../utils/validators/diagnosisValidator'
 
 export class DiagnosisController {
   private readonly diagnosisService: DiagnosisService;
@@ -18,11 +19,22 @@ export class DiagnosisController {
 		res.json(evaluation)
 	}
 	catch (err) {
-		if (err instanceof AuthorizationError){
-			res.status(401).send(err.message)
-		} else if(err instanceof GeneralError) {
-			res.status(500).send(err.message)
-		}
+		manageExceptions(err, res);
+	}
+  }
+
+  async confirmDiagnosis(req: Request, res: Response) {
+	try {
+		const userUuid = req.headers.userUuid;
+		const uuid = req.params?.uuid;
+
+		validateDiagnosisConfirmationInputs(uuid);
+
+        await this.diagnosisService.confirmDiagnosis(userUuid as Uuid, uuid as Uuid);
+		res.status(200).send(`Diagnosis with uuid ${uuid} has been confirmed.`)
+	}
+	catch (err) {
+		manageExceptions(err, res);
 	}
   }
 

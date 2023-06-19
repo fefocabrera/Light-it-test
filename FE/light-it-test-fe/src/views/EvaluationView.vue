@@ -72,6 +72,7 @@
   const evaluateSymptoms = async () => {
     try {
       isLoading.value = true;
+      diagnoses.value = null;
       const res = await axios.post('api/symptom/evaluate', {
           symptoms: selectedSymptoms.value
       })

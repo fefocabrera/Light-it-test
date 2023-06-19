@@ -4,12 +4,12 @@ import Diagnosis from "../database/models/diagnosis";
 import { Uuid } from '../types/Basetypes';
 import sequelize from '../database/index';
 import { QueryTypes } from 'sequelize';
-import { HistoricDiagnosisDto, EvaluationDto, DiagnosisDto } from "../domain/dto/historicDiagnosisDto"
+import { HistoryDiagnosisDto, EvaluationDto, DiagnosisDto } from "../domain/dto/historyDiagnosisDto"
 
 export class DiagnosisService {
   constructor() {}
 
-    async getDiagnosisHistoric(userUuid: Uuid): Promise<HistoricDiagnosisDto> {
+    async getDiagnosisHistory(userUuid: Uuid): Promise<HistoryDiagnosisDto> {
       try{
         const user = await User.findByPk(userUuid);
         if(!user){
@@ -42,7 +42,7 @@ export class DiagnosisService {
         });
 
         const evaluations: EvaluationDto[] = []
-        const historic = new HistoricDiagnosisDto({
+        const history = new HistoryDiagnosisDto({
           userUuid: user.uuid,
           evaluations
         })
@@ -66,9 +66,9 @@ export class DiagnosisService {
                 symptoms: result?.symptomDescriptions,
                 diagnoses
               })
-              historic.evaluations.push(evaluation);
+              history.evaluations.push(evaluation);
             } else {
-              const diagnosisAlreadyExist = historic.evaluations[evaluationIndex]?.diagnoses.find((elem: DiagnosisDto) => elem?.uuid === result?.diagnosisUuid);
+              const diagnosisAlreadyExist = history.evaluations[evaluationIndex]?.diagnoses.find((elem: DiagnosisDto) => elem?.uuid === result?.diagnosisUuid);
               if(!diagnosisAlreadyExist){
                 const diagnosis = new DiagnosisDto({
                   uuid: result?.diagnosisUuid,
@@ -76,13 +76,13 @@ export class DiagnosisService {
                   precision: result?.diagnosisPrecision,
                   confirmed: result?.diagnosisConfirmed
                 })
-                historic.evaluations[evaluationIndex].diagnoses.push(diagnosis)
+                history.evaluations[evaluationIndex].diagnoses.push(diagnosis)
               }
             }
           })
         }
 
-        return historic;
+        return history;
       }
       catch (err){
         if(err instanceof AuthorizationError) {

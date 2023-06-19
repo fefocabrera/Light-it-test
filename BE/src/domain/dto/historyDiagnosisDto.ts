@@ -1,5 +1,5 @@
 import { Uuid } from '../../types/Basetypes';
-export class HistoricDiagnosisDto {
+export class HistoryDiagnosisDto {
     userUuid: Uuid;
     evaluations: EvaluationDto[];
 

@@ -77,7 +77,7 @@ Recibe una lista de síntomas.
 Retorna una evaluación con varios diagnósticos.
 
 ## Obtener historial de diagnósticos
-GET: http://localhost:3000/api/diagnosis/historic
+GET: http://localhost:3000/api/diagnosis/history
 Header: Authorization : Bearer {token}
 
 Retorna una lista con todos los diagnósticos realizados para el usuario, junto con sus síntomas, ordenados por fecha.

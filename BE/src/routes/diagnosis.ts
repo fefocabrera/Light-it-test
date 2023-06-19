@@ -10,7 +10,7 @@ export class DiagnosisRoutes {
     this.router = express.Router();
     this.diagnosisController = new DiagnosisController();
 
-    this.router.get('/historic', isAuthenticated, async (req, res) => this.diagnosisController.getDiagnosisHistoric(req, res));
+    this.router.get('/history', isAuthenticated, async (req, res) => this.diagnosisController.getDiagnosisHistory(req, res));
     this.router.put('/confirm/:uuid', isAuthenticated, async (req, res) => this.diagnosisController.confirmDiagnosis(req, res));
   }
 

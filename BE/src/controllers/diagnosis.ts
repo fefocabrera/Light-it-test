@@ -11,11 +11,11 @@ export class DiagnosisController {
     this.diagnosisService = new DiagnosisService();
   }
 
-  async getDiagnosisHistoric(req: Request, res: Response) {
+  async getDiagnosisHistory(req: Request, res: Response) {
 	try {
 		const userUuid = req.headers.userUuid;
 
-        const evaluation = await this.diagnosisService.getDiagnosisHistoric(userUuid as Uuid);
+        const evaluation = await this.diagnosisService.getDiagnosisHistory(userUuid as Uuid);
 		res.json(evaluation)
 	}
 	catch (err) {

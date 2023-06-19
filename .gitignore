@@ -138,15 +138,9 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
-### react ###
-.DS_*
-**/*.backup.*
-**/*.back.*
+### Vuejs ###
+# Recommended template: Node.gitignore
 
-node_modules
-
-*.sublime*
-
-psd
-thumb
-sketch
+dist/
+npm-debug.log
+yarn-error.log

@@ -1,10 +1,16 @@
 import express from 'express';
 import { UserRoutes, SymptomRoutes, DiagnosisRoutes } from './routes';
+import cors from 'cors';
 
 const app = express()
+const frontendAppUrl = process.env.FRONTEND_APP_URL || 'http://localhost:8080/';
 
 const apiRouter = express.Router();
 app.use('/api', apiRouter);
+app.use(cors({
+    origin: frontendAppUrl, 
+    optionsSuccessStatus: 200
+}));
 
 const userRoutes = new UserRoutes();
 const symptomRoutes = new SymptomRoutes();

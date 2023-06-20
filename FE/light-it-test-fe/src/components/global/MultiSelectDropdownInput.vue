@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-    import { defineProps, defineEmits, toRefs, computed, ref } from 'vue'
+    import { defineProps, defineEmits, toRefs, computed } from 'vue'
     import VueMultiselect from 'vue-multiselect'
 
     const emit = defineEmits(['update:input'])

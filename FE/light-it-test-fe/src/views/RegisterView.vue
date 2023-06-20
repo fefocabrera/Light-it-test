@@ -142,6 +142,7 @@
                     repeatPassword: repeatPassword.value
                 })
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + res.data
+                sessionStorage.setItem('token', 'Bearer ' + res.data);
 
                 router.push('/evaluation')
             } catch (err) {

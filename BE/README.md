@@ -134,4 +134,3 @@ También debería aplicarse paginación al endpoint de Obtener síntomas o Obten
 Sin duda sería una gran mejora aplicar Cache tanto a endpoints de Get que puedan tener mucho tráfico como por ejemplo el Obtener síntomas, así como también para llamadas a apis externas como la existente. Esto evitaría realizar consultas innecesarias y duplicadas en muchos casos.
 - 2FA
 Dado que el sistema maneja datos sensibles como un historial médico, sería una buena idea utilizar Two-Factor Authentication, para evitar problemas de seguridad al autenticarse.
-- Implementación de Logout.

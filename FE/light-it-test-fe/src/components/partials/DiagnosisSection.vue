@@ -26,7 +26,7 @@
 
 <script setup>
     import { defineProps, toRefs } from 'vue'
-    import Diagnosis from '../../types/types.ts'
+    import { Diagnosis } from '@/types/types';
 
     const props = defineProps({
         diagnosis: Diagnosis
@@ -37,15 +37,3 @@
 
 <style lang="scss">
 </style>
-export interface Diagnosis {
-    Issue: {
-        ID: number,
-        Name: string,
-        Accuracy: number,
-        Ranking: number
-    };
-    Specialisation: {
-        ID: number,
-        Name: string
-    };
-}

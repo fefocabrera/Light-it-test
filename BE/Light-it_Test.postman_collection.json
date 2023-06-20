@@ -1,0 +1,241 @@
+{
+	"info": {
+		"_postman_id": "563dc9b4-5049-4091-a0ac-126f5136410f",
+		"name": "Light-it Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1139035"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Federico\",\n    \"lastName\": \"Cabrera\",\n    \"gender\": \"male\",\n    \"birthdate\": \"1988-10-08 14:23\",\n    \"username\": \"fefocabrera\",\n    \"password\": \"password\",\n    \"repeatPassword\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"fefocabrera\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Evaluate Symptoms",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVXVpZCI6IjFkNjFjNjViLTMwYWMtNDc2ZS04NzdiLWY4ZDNlNjNmMmE2YSIsImlhdCI6MTY4NzIzMDk0OX0.nRk6T9joVeqqu-gRJk4IE_ZiqCA7xLMwnmpjM5pCaVs",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"symptoms\": [\n        { \n            \"id\": 10,\n            \"name\": \"Abdominal pain\"\n        },\n        { \n            \"id\": 104,\n            \"name\": \"Back pain\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/symptom/evaluate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"symptom",
+						"evaluate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Symptom",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVXVpZCI6IjFkNjFjNjViLTMwYWMtNDc2ZS04NzdiLWY4ZDNlNjNmMmE2YSIsImlhdCI6MTY4NzIzMDk0OX0.nRk6T9joVeqqu-gRJk4IE_ZiqCA7xLMwnmpjM5pCaVs",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/symptom",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"symptom"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Diagnosis Historic",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVXVpZCI6IjFkNjFjNjViLTMwYWMtNDc2ZS04NzdiLWY4ZDNlNjNmMmE2YSIsImlhdCI6MTY4NzIzMDk0OX0.nRk6T9joVeqqu-gRJk4IE_ZiqCA7xLMwnmpjM5pCaVs",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/diagnosis/history",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"diagnosis",
+						"history"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm Diagnosis",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyVXVpZCI6IjFkNjFjNjViLTMwYWMtNDc2ZS04NzdiLWY4ZDNlNjNmMmE2YSIsImlhdCI6MTY4NzIzMDk0OX0.nRk6T9joVeqqu-gRJk4IE_ZiqCA7xLMwnmpjM5pCaVs",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/diagnosis/confirm/da17382b-d516-4e0d-b9c2-20a9ad678872",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"diagnosis",
+						"confirm",
+						"da17382b-d516-4e0d-b9c2-20a9ad678872"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -110,6 +110,8 @@ export class DiagnosisService {
       catch (err){
         if (err instanceof ValidationError) {
           throw new ValidationError(`Error trying to confirm diagnosis. ${err}`);
+        } else if (err instanceof AuthorizationError) {
+          throw new AuthorizationError(`Error trying to confirm diagnosis. ${err}`);
         } else {
           throw new GeneralError(`Internal error trying to confirm diagnosis. ${err}`);
         }
@@ -143,7 +145,9 @@ const validateDiagnosisExistAndBelongsToUser = async (userUuid: Uuid, diagnosisU
   } catch (err){
     if(err instanceof AuthorizationError) {
       throw new AuthorizationError(`Error trying to validate if diagnosis exist and belongs to user. ${err}`);
-    } else {
+    } else if(err instanceof ValidationError) {
+      throw new ValidationError(`Error trying to validate if diagnosis exist and belongs to user. ${err}`);
+    }else {
       throw new GeneralError(`Internal error trying to validate if diagnosis exist and belongs to user. ${err}`);
     }
   }

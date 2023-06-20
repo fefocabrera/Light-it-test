@@ -1,5 +1,5 @@
 <template>
-    <div v-if="history && history.evaluations.length > 0" class="border border-gray w-screen">
+    <div v-if="history && history?.evaluations?.length > 0" class="border border-gray w-screen">
         <div v-for="evaluation in history.evaluations" :key="evaluation" class="border border-gray w-screen">
             <EvaluationHistorySection :evaluation="evaluation"/>
         </div>

@@ -6,7 +6,7 @@
           <h1 class="m-6 text-4xl">History</h1>
       </div>
       <div v-if="!isLoading">
-        <div class="mb-5" v-if="history?.evaluations?.length > 0">
+        <div class="mb-5">
           <div class="w-full">
             <DiagnosesHistorySection :history="history"/>
           </div>

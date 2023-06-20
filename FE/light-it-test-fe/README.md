@@ -39,5 +39,8 @@ Vistas principales de la aplicación
 <br/>
 
 ## Mejoras a futuro
+- En un futuro sería una buena idea aplicar autenticación con terceros como por ejemplo con Google o Facebook.
 - Se podría aplicar una mayor cantidad de valores responsive utilizando tailwind.
 - Se podría mejorar los mensajes de error que se muestran al usuario final, y no mostrar directamente los mensajes de error que llegan desde el BE.
+- También se debería aplicar paginación al obtener la lista de síntomas o el historial de diagnósticos del usuario.
+- Sin duda sería una gran mejora aplicar Cache como por ejemplo utilizando Redis, al obtener la lista de síntomas. Esto evitaría realizar consultas innecesarias y con mucho tráfico.

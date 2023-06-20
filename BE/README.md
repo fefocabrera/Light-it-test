@@ -12,15 +12,15 @@ Node version 18.15.0
 - Ejecutar el comando 'yarn start' 
 
 ## Testing
-- Existe una colección de Postman con ejemplos de guia para ambas requests
+- Existe una colección de Postman con ejemplos de guia para todas las requests con el nombre "Light-it_Test.postman_collection.json"
 
 <br/>
 
-# Endpoints
+## Endpoints
 Todos los endpoints excepto Registrar y Login, deben recibir un token de autenticación. Este token se obtiene de los endpoints Registrar y Login.
 Dicho token contiene dentro información del usuario autenticado.
 
-## Registrar 
+### Registrar 
 POST: http://localhost:3000/api/register
 
 Todos los campos son requeridos
@@ -37,7 +37,7 @@ Todos los campos son requeridos
 ```
 Retorna un token.
 
-## Login 
+### Login 
 POST: http://localhost:3000/api/login
 
 Todos los campos son requeridos
@@ -49,13 +49,13 @@ Todos los campos son requeridos
 ```
 Retorna un token.
 
-## Obtener síntomas
+### Obtener síntomas
 GET: http://localhost:3000/api/symptom
 Header: Authorization : Bearer {token}
 
 Retorna una lista con todos los síntomas disponibles.
 
-## Evaluar síntomas
+### Evaluar síntomas
 POST: http://localhost:3000/api/symptom/evaluate
 Header: Authorization : Bearer {token}
 
@@ -76,13 +76,13 @@ Recibe una lista de síntomas.
 ```
 Retorna una evaluación con varios diagnósticos.
 
-## Obtener historial de diagnósticos
+### Obtener historial de diagnósticos
 GET: http://localhost:3000/api/diagnosis/history
 Header: Authorization : Bearer {token}
 
 Retorna una lista con todos los diagnósticos realizados para el usuario, junto con sus síntomas, ordenados por fecha.
 
-## Confirmar diagnósticos
+### Confirmar diagnósticos
 PUT: http://localhost:3000/api/diagnosis/confirm/:uuid //uuid del diagnóstico a confirmar
 Header: Authorization : Bearer {token}
 
@@ -90,7 +90,7 @@ Retorna "Diagnosis with uuid {uuid} has been confirmed.".
 
 <br/>
 
-# Estructura del proyecto
+## Estructura del proyecto
 - routes:  
 Contiene los archivos encargados de declarar las Uris de los endpoints existentes.
 
@@ -120,12 +120,12 @@ Contiene funciones útiles para el resto del sistema como validadores de inputs,
 
 <br/>
 
-# Limitaciones
+## Limitaciones
 - Actualmente no es posible hacer Logout en el sistema.
 
 <br/>
 
-# Mejoras a futuro
+## Mejoras a futuro
 - Tests
 En una versión a futuro de este sistema deberían agregarse al menos pruebas unitarias para chequear la capa de lógica del sistema.
 - Paginación
